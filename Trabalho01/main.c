@@ -46,7 +46,7 @@ void on_mouseClick(int botao_clicado, int estado_do_click, int x_mouse_position,
 void desenha(){
 
     // Colorir o fundo de branco
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClearColor(0.28f, 0.82f, 0.8f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
 
@@ -57,7 +57,7 @@ void desenha(){
     
     
     // Especifica a cor preta
-    glColor3f(R, G, B);
+    glColor3f(0.18f, 0.31f, 0.31f);
     
     // Desenha o triangulo
     glBegin(GL_TRIANGLES);
@@ -67,7 +67,7 @@ void desenha(){
     glEnd();
 
     // Especifica a cor preta
-    glColor3f(1.0f, 0.0f, 0.0f);
+    glColor3f(0.44f, 0.5f, 0.56f);
     
     // Desenha um retângulo preenchido com a cor corrente
     glBegin(GL_POLYGON);
@@ -78,12 +78,12 @@ void desenha(){
     glEnd();
     
     // Especifica a cor preta
-    glColor3f(0.0f, 0.0f, 1.0f);
+    glColor3f(R, G, B);
     
     // Desenha um retângulo preenchido com a cor corrente
     glBegin(GL_POLYGON);
-    glVertex2f(50.0f, 50.0f);
-    glVertex2f(150.0f, 50.0f);
+    glVertex2f(50.0f, 60.0f);
+    glVertex2f(150.0f, 60.0f);
     glVertex2f(150.0f, 80.0f);
     glVertex2f(50.0f, 80.0f);
     glEnd();

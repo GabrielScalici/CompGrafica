@@ -21,6 +21,28 @@
 #endif
 
 
+//Metodo de evento do mouse
+GLfloat R=0.0f, G=0.0f, B=0.0f;
+
+void on_mouseClick(int botao_clicado, int estado_do_click, int x_mouse_position, int y_mouse_position) {
+    
+    if (estado_do_click == GLUT_DOWN) {
+        if (botao_clicado == GLUT_RIGHT_BUTTON) {
+            R = 0.0f;
+            G = 0.0f;
+            B = 0.0f;
+        } else if (botao_clicado == GLUT_LEFT_BUTTON) {
+            R = 1.0f;
+            G = 1.0f;
+            B = 1.0f;
+        }
+    }
+    
+    glutPostRedisplay(); // For�a a glut redesenhar a cena ap�s a atualiza��o.
+}
+
+
+//Funcoes auxiliares
 void desenha(){
 
     // Colorir o fundo de branco
@@ -35,12 +57,12 @@ void desenha(){
     
     
     // Especifica a cor preta
-    glColor3f(0.0f, 0.0f, 0.0f);
+    glColor3f(R, G, B);
     
     // Desenha o triangulo
     glBegin(GL_TRIANGLES);
     glVertex2f(60.0f, 30.0f);
-    glVertex2f(50.0f, 120.0f);
+    glVertex2f(100.0f, 120.0f);
     glVertex2f(120.0f, 30.0f);
     glEnd();
     
@@ -53,6 +75,8 @@ void desenha(){
 }
 
 
+
+
 int main(int argc, const char * argv[]) {
     
     glutInit(&argc, argv); // Inicia uma inst�ncia da glut
@@ -62,7 +86,7 @@ int main(int argc, const char * argv[]) {
     glutDisplayFunc(desenha); // Estabelece que a fun��o de rendering � a fun��o "desenha(.)"
     
     
-    //glutMouseFunc(on_mouseClick); // Evento de click do mouse
+    glutMouseFunc(on_mouseClick); // Evento de click do mouse
     
     
     glMatrixMode(GL_PROJECTION); // Especifica��es de observa��o de cena

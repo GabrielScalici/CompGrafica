@@ -61,14 +61,33 @@ void desenha(){
     
     // Desenha o triangulo
     glBegin(GL_TRIANGLES);
-    glVertex2f(60.0f, 30.0f);
-    glVertex2f(100.0f, 120.0f);
+    glVertex2f(100.0f, 30.0f);
+    glVertex2f(110.0f, 120.0f);
     glVertex2f(120.0f, 30.0f);
     glEnd();
-    
-    glLoadIdentity();
-    
 
+    // Especifica a cor preta
+    glColor3f(1.0f, 0.0f, 0.0f);
+    
+    // Desenha um retângulo preenchido com a cor corrente
+    glBegin(GL_POLYGON);
+    glVertex2f(0.0f, 50.0f);
+    glVertex2f(100.0f, 50.0f);
+    glVertex2f(100.0f, 80.0f);
+    glVertex2f(0.0f, 80.0f);
+    glEnd();
+    
+    // Especifica a cor preta
+    glColor3f(0.0f, 0.0f, 1.0f);
+    
+    // Desenha um retângulo preenchido com a cor corrente
+    glBegin(GL_POLYGON);
+    glVertex2f(50.0f, 50.0f);
+    glVertex2f(150.0f, 50.0f);
+    glVertex2f(150.0f, 80.0f);
+    glVertex2f(50.0f, 80.0f);
+    glEnd();
+    
     
     glFlush();
     

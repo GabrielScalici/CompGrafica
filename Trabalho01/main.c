@@ -1,5 +1,5 @@
 //  Trabalho da Disciplina de Computação Gráfica:
-//  "Moinho"
+//  "CATA-VENTO"
 //
 //  Created by Gabriel Scalici 9292970 on 11/04/17.
 //
@@ -61,15 +61,33 @@ void redesenha(int height, int width){
 void desenha(){
     
     
-    // Colorir o fundo de branco
+    // Limpar a tela
     glClearColor(0.28f, 0.82f, 0.8f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
+    //Adicao de plano de fundo
+    //retangulo para chão
+    
+    glLoadIdentity();
+     glColor3f(0.51f, 0.26f, 0.0f);
+    
+    glBegin(GL_POLYGON);
+        glVertex2f(-100.0f, -100.0f);
+        glVertex2f(100.0f, -100.0f);
+        glVertex2f(100.0f, -100.0f);
+        glVertex2f(-100.0f, -60.0f);
+    glEnd();
+    
+    //Sol
+    
+    
+    
+    
     
     // Iniciar as transforma��es 2D
-    glMatrixMode(GL_MODELVIEW); // Inicia-se a matriz de transforma��es da openGL
+    glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    ///////////////////////////////
+    
     
     
     // Especifica a cor
@@ -169,11 +187,11 @@ int main(int argc, const char * argv[]) {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     //glEnable(GL_MULTISAMPLE);
     glutInitWindowSize(800, 600);
-    glutCreateWindow("Ventilador");
+    glutCreateWindow("Hélices");
     
     glMatrixMode(GL_PROJECTION);
-    glViewport(0, 0, 800, 600);
-    gluOrtho2D(-100, 100, -100, 100);
+    glViewport(0, 0, 800, 450);
+    gluOrtho2D(-300, 300, -300, 300);
     
     
     //Funcoes para desenhar na tela

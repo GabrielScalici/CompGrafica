@@ -62,14 +62,15 @@ void desenha(){
     
     
     // Limpar a tela
-    glClearColor(0.28f, 0.82f, 0.8f, 1.0f);
+    glClearColor(0.53f, 0.81f, 0.98f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     //Adicao de plano de fundo
+
     //retangulo para chão
     
     glLoadIdentity();
-     glColor3f(0.51f, 0.26f, 0.0f);
+     glColor3f(0.24f, 0.17f, 0.12f);
     
     glBegin(GL_POLYGON);
         glVertex2f(-100.0f, -100.0f);
@@ -78,11 +79,7 @@ void desenha(){
         glVertex2f(-100.0f, -60.0f);
     glEnd();
     
-    //Sol
-    
-    
-    
-    
+
     
     // Iniciar as transforma��es 2D
     glMatrixMode(GL_MODELVIEW);
@@ -187,7 +184,7 @@ int main(int argc, const char * argv[]) {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     //glEnable(GL_MULTISAMPLE);
     glutInitWindowSize(800, 600);
-    glutCreateWindow("Hélices");
+    glutCreateWindow("Energia Eólica");
     
     glMatrixMode(GL_PROJECTION);
     glViewport(0, 0, 800, 450);

@@ -1,7 +1,7 @@
 all: compile run clean
 
 compile:
-	gcc -o output main.c -L/System/Library/Frameworks -framework GLUT -framework OpenGL
+	gcc -o output main.cpp -L/System/Library/Frameworks -framework GLUT -framework OpenGL
 
 run:
 	./output

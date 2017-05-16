@@ -39,11 +39,11 @@ void move_missel2(int passo){
 // Funусo para desenhar a base do objeto
 void DesenhaAviao(){
 
-    glColor3f(1.0f,0.0f,1.0f);
+    glColor3f(0.2f,0.2f,0.2f);
     glLineWidth(2);
     glBegin(GL_TRIANGLES);
-        glVertex2f(-1.0f,-1.0f);
-        glVertex2f(1.0f,-1.0f);
+        glVertex2f(-0.3f,-0.8f);
+        glVertex2f(0.3f,-0.8f);
         glVertex2f(0.0f,0.0f);
     glEnd();
 
@@ -193,9 +193,9 @@ int main(int argc, char* argv[])
 {
     glutInit(&argc, argv); // Inicia uma instРncia da glut
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-    glutInitWindowPosition(5,5);
+    glutInitWindowPosition(100,100);
     glutInitWindowSize(800,600);
-    glutCreateWindow("Desenho de um protзtipo de jatinho do Space Invaders!");
+    glutCreateWindow("Space Invaders!");
 
     // Registra a funусo callback de redesenho da janela de visualizaусo
     glutDisplayFunc(Desenha);

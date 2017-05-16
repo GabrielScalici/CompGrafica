@@ -1,3 +1,11 @@
+  /*
+  *  Trabalho 02 de Computacao Grafica
+  *  "Space Invader"
+  *
+  *  Gabriel Henrique Campos Scalici 9292970
+  *  Keith Tsukada Sasaki
+  *
+  */
 
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
@@ -12,7 +20,6 @@
 #include <GL/glut.h>
 #endif
 
-// Declaraусo de variрveis globais
 GLfloat missel1_y = 0, missel2_y = 0;
 GLfloat aviao_x = 0, missel1_tx = 0, missel2_tx = 0;
 
@@ -36,10 +43,25 @@ void move_missel2(int passo){
     glutTimerFunc(10, move_missel2, passo);
 }
 
+void DesenhaInimigos(){
+
+  glLoadIdentity();
+   glColor3f(1.0f, 1.0f, 1.0f);
+
+  glBegin(GL_POLYGON);
+      glVertex2f();
+      glVertex2f();
+      glVertex2f();
+      glVertex2f();
+  glEnd();
+
+
+}
+
 // Funусo para desenhar a base do objeto
 void DesenhaAviao(){
 
-    glColor3f(0.2f,0.2f,0.2f);
+    glColor3f(0.83f,0.83f,0.83f);
     glLineWidth(2);
     glBegin(GL_TRIANGLES);
         glVertex2f(-0.3f,-0.8f);
@@ -74,7 +96,6 @@ void Desenha(void)
     // de fundo definida previamente
     glClear(GL_COLOR_BUFFER_BIT);
 
-
     glTranslatef(aviao_x,0.0f,0.0f);
     glTranslatef(0.0f,-0.7f,0.0f);
     glScalef(0.3f,0.3f,0.0f);
@@ -104,8 +125,7 @@ void Desenha(void)
     glPopMatrix(); //Pro jatinho nao sair junto com o missel 1.
     // Desenha o jatinho.
     DesenhaAviao();
-
-
+    DesenhaInimigos();
 
     // Executa os comandos OpenGL
     glFlush();
@@ -135,19 +155,16 @@ void AlteraTamanhoJanela(GLsizei w, GLsizei h)
     if (largura <= altura)
     {
         gluOrtho2D (-1.0f, 1.0f, -1.0f*altura/largura, 1.0f*altura/largura);
-        //win = 1.0f;
     }
     else
     {
         gluOrtho2D (-1.0f*largura/altura, 1.0f*largura/altura, -1.0f, 1.0f);
-    //  win = 1.0f*largura/altura;
     }
 }
 
 // Funусo callback chamada para gerenciar eventos de teclas especiais(F1,PgDn,...)
 void TeclasEspeciais(int key, int x, int y)
 {
-    // Move a base
     if(key == GLUT_KEY_LEFT)
     {
         aviao_x-=0.05;
@@ -164,13 +181,10 @@ void TeclasEspeciais(int key, int x, int y)
         missel1_moving = true;
         missel1_tx = aviao_x;
         glutTimerFunc(10, move_missel1, 1);
-    }
-    if(key == GLUT_KEY_DOWN){
         missel2_moving = true;
         missel2_tx = aviao_x;
         glutTimerFunc(10, move_missel2, 1);
     }
-
 
     glutPostRedisplay();
 }
@@ -181,7 +195,7 @@ void TeclasEspeciais(int key, int x, int y)
 void Inicializa (void)
 {
     // Define a cor de fundo da janela de visualizaусo como branca
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClearColor(0.18f, 0.31f, 0.31f, 0.0f);
     gluOrtho2D (-1.0f, 1.0f, -1.0f, 1.0f);
     glViewport(0, 0, 500, 500);
 }

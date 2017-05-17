@@ -44,18 +44,162 @@ void move_missel2(int passo){
 }
 
 void DesenhaInimigos(){
+  //Inicio na parte superior esquerda
+  //Primeira fileira
+  glLoadIdentity();
+   glColor3f(1.0f, 1.0f, 1.0f);
+
+  glBegin(GL_POLYGON);
+      glVertex2f(-0.8f, 0.8f);
+      glVertex2f(-0.7f, 0.8f);
+      glVertex2f(-0.7f, 0.7f);
+      glVertex2f(-0.8f, 0.7f);
+  glEnd();
 
   glLoadIdentity();
    glColor3f(1.0f, 1.0f, 1.0f);
 
   glBegin(GL_POLYGON);
-      glVertex2f();
-      glVertex2f();
-      glVertex2f();
-      glVertex2f();
+      glVertex2f(-0.6f, 0.8f);
+      glVertex2f(-0.5f, 0.8f);
+      glVertex2f(-0.5f, 0.7f);
+      glVertex2f(-0.6f, 0.7f);
   glEnd();
 
+  glLoadIdentity();
+   glColor3f(1.0f, 1.0f, 1.0f);
 
+  glBegin(GL_POLYGON);
+      glVertex2f(-0.4f, 0.8f);
+      glVertex2f(-0.3f, 0.8f);
+      glVertex2f(-0.3f, 0.7f);
+      glVertex2f(-0.4f, 0.7f);
+  glEnd();
+
+  glLoadIdentity();
+   glColor3f(1.0f, 1.0f, 1.0f);
+
+  glBegin(GL_POLYGON);
+      glVertex2f(-0.2f, 0.8f);
+      glVertex2f(-0.1f, 0.8f);
+      glVertex2f(-0.1f, 0.7f);
+      glVertex2f(-0.2f, 0.7f);
+  glEnd();
+
+  glLoadIdentity();
+   glColor3f(1.0f, 1.0f, 1.0f);
+
+  glBegin(GL_POLYGON);
+      glVertex2f(0.0f, 0.8f);
+      glVertex2f(0.1f, 0.8f);
+      glVertex2f(0.1f, 0.7f);
+      glVertex2f(0.0f, 0.7f);
+  glEnd();
+
+  //Segunda fileira
+  glLoadIdentity();
+   glColor3f(1.0f, 1.0f, 1.0f);
+
+  glBegin(GL_POLYGON);
+      glVertex2f(-0.8f, 0.6f);
+      glVertex2f(-0.7f, 0.6f);
+      glVertex2f(-0.7f, 0.5f);
+      glVertex2f(-0.8f, 0.5f);
+  glEnd();
+
+  glLoadIdentity();
+   glColor3f(1.0f, 1.0f, 1.0f);
+
+  glBegin(GL_POLYGON);
+      glVertex2f(-0.6f, 0.6f);
+      glVertex2f(-0.5f, 0.6f);
+      glVertex2f(-0.5f, 0.5f);
+      glVertex2f(-0.6f, 0.5f);
+  glEnd();
+
+  glLoadIdentity();
+   glColor3f(1.0f, 1.0f, 1.0f);
+
+  glBegin(GL_POLYGON);
+      glVertex2f(-0.4f, 0.6f);
+      glVertex2f(-0.3f, 0.6f);
+      glVertex2f(-0.3f, 0.5f);
+      glVertex2f(-0.4f, 0.5f);
+  glEnd();
+
+  glLoadIdentity();
+   glColor3f(1.0f, 1.0f, 1.0f);
+
+  glBegin(GL_POLYGON);
+      glVertex2f(-0.2f, 0.6f);
+      glVertex2f(-0.1f, 0.6f);
+      glVertex2f(-0.1f, 0.5f);
+      glVertex2f(-0.2f, 0.5f);
+  glEnd();
+
+  glLoadIdentity();
+   glColor3f(1.0f, 1.0f, 1.0f);
+
+  glBegin(GL_POLYGON);
+      glVertex2f(0.0f, 0.6f);
+      glVertex2f(0.1f, 0.6f);
+      glVertex2f(0.1f, 0.5f);
+      glVertex2f(0.0f, 0.5f);
+  glEnd();
+
+//Terceira fileira
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(-0.8f, 0.4f);
+    glVertex2f(-0.7f, 0.4f);
+    glVertex2f(-0.7f, 0.3f);
+    glVertex2f(-0.8f, 0.3f);
+glEnd();
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(-0.6f, 0.4f);
+    glVertex2f(-0.5f, 0.4f);
+    glVertex2f(-0.5f, 0.3f);
+    glVertex2f(-0.6f, 0.3f);
+glEnd();
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(-0.4f, 0.4f);
+    glVertex2f(-0.3f, 0.4f);
+    glVertex2f(-0.3f, 0.3f);
+    glVertex2f(-0.4f, 0.3f);
+glEnd();
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(-0.2f, 0.4f);
+    glVertex2f(-0.1f, 0.4f);
+    glVertex2f(-0.1f, 0.3f);
+    glVertex2f(-0.2f, 0.3f);
+glEnd();
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(0.0f, 0.4f);
+    glVertex2f(0.1f, 0.4f);
+    glVertex2f(0.1f, 0.3f);
+    glVertex2f(0.0f, 0.3f);
+glEnd();
+
+//Quarta fileira
 }
 
 // Funусo para desenhar a base do objeto
@@ -125,6 +269,7 @@ void Desenha(void)
     glPopMatrix(); //Pro jatinho nao sair junto com o missel 1.
     // Desenha o jatinho.
     DesenhaAviao();
+
     DesenhaInimigos();
 
     // Executa os comandos OpenGL

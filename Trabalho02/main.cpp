@@ -200,6 +200,110 @@ glBegin(GL_POLYGON);
 glEnd();
 
 //Quarta fileira
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(-0.8f, 0.2f);
+    glVertex2f(-0.7f, 0.2f);
+    glVertex2f(-0.7f, 0.1f);
+    glVertex2f(-0.8f, 0.1f);
+glEnd();
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(-0.6f, 0.2f);
+    glVertex2f(-0.5f, 0.2f);
+    glVertex2f(-0.5f, 0.1f);
+    glVertex2f(-0.6f, 0.1f);
+glEnd();
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(-0.4f, 0.2f);
+    glVertex2f(-0.3f, 0.2f);
+    glVertex2f(-0.3f, 0.1f);
+    glVertex2f(-0.4f, 0.1f);
+glEnd();
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(-0.2f, 0.2f);
+    glVertex2f(-0.1f, 0.2f);
+    glVertex2f(-0.1f, 0.1f);
+    glVertex2f(-0.2f, 0.1f);
+glEnd();
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(0.0f, 0.2f);
+    glVertex2f(0.1f, 0.2f);
+    glVertex2f(0.1f, 0.1f);
+    glVertex2f(0.0f, 0.1f);
+glEnd();
+
+//Quinta fileira
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(-0.8f, 0.0f);
+    glVertex2f(-0.7f, 0.0f);
+    glVertex2f(-0.7f, -0.1f);
+    glVertex2f(-0.8f, -0.1f);
+glEnd();
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(-0.6f, 0.0f);
+    glVertex2f(-0.5f, 0.0f);
+    glVertex2f(-0.5f, -0.1f);
+    glVertex2f(-0.6f, -0.1f);
+glEnd();
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(-0.4f, 0.0f);
+    glVertex2f(-0.3f, 0.0f);
+    glVertex2f(-0.3f, -0.1f);
+    glVertex2f(-0.4f, -0.1f);
+glEnd();
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(-0.2f, 0.0f);
+    glVertex2f(-0.1f, 0.0f);
+    glVertex2f(-0.1f, -0.1f);
+    glVertex2f(-0.2f, -0.1f);
+glEnd();
+
+glLoadIdentity();
+ glColor3f(1.0f, 1.0f, 1.0f);
+
+glBegin(GL_POLYGON);
+    glVertex2f(0.0f, 0.0f);
+    glVertex2f(0.1f, 0.0f);
+    glVertex2f(0.1f, -0.1f);
+    glVertex2f(0.0f, -0.1f);
+glEnd();
+
+
 }
 
 // Funусo para desenhar a base do objeto

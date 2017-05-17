@@ -1,493 +1,294 @@
-  /*
-  *  Trabalho 02 da matéria de Computacao Grafica (ICMC), usando OpenGL.
-  *  Tema: "Space Invader".
-  *
-  *  Alunos:
-  *  Gabriel Henrique Campos Scalici 9292970
-  *  Keith Tsukada Sasaki
-  *
-  *  DATA: 21/05/2017
-  *
-  */
-
-//Includes corretos para rodar no macOS, Windows e Linux
-#ifdef __APPLE__
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#include <GLUT/glut.h>
-#else
-#ifdef _WIN32
-#include <windows.h>
-#endif
-#include <GL/gl.h>
-#include <GL/glu.h>
+#include <stdlib.h>
 #include <GL/glut.h>
-#endif
+#include <stdio.h>
+#include <time.h>
+#include <cmath>
 
-GLfloat missel1_y = 0, missel2_y = 0;
-GLfloat aviao_x = 0, missel1_tx = 0, missel2_tx = 0;
-GLfloat inimigo_x = 0, inimigo_y = 0;
+#define DIREITA 1
+#define ESQUERDA 0
 
-bool missel1_moving = false, missel2_moving = false;
+//INIMIGOS
+GLint posX = 0,moveInimigox = 0, larguraInimigo = 50, alturaInimigo = 15, distanciaX = 100;
+GLint fileira1y = 550, fileira2y = 520, fileira3y = 490, fileira4y = 460, fileira5y = 430;
+int direcaoX = DIREITA;
 
-int msec_missel1 = 0, msec_missel2 = 0, msec_inimigo = 0;
+//NAVE
+GLint naveX = 370, naveY = 20, larguraNave = 60, alturaNave = 50;
 
+//TELA
+GLdouble ortholeft = 0, orthoright = 800, orthobot = 0, orthotop = 600;
+GLsizei largura = 800, altura = 600;
 
-void move_missel1(int passo){
-    missel1_y += (1.0*passo);
-    glutPostRedisplay();
-    glutTimerFunc(10, move_missel1, passo);
+void iniciaParametrosVisualizacao(void) {
+    glClearColor(0.18f, 0.31f, 0.31f, 0.0f);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(ortholeft, orthoright, orthobot, orthotop);
 }
 
-void move_missel2(int passo){
-    missel2_y += (1.0*passo);
-    glutPostRedisplay();
-    glutTimerFunc(10, move_missel2, passo);
-}
-
-void move_inimigos(int passo){
-    inimigo_x += (1.0*passo);
-    glutPostRedisplay();
-    glutTimerFunc(10, move_inimigos, passo);
-}
-
-//Funcao para desenhar os inimigos
-void DesenhaInimigos(){
-  //Inicio na parte superior esquerda
-  //Primeira fileira
-  glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 0.88f);
-
-  glBegin(GL_POLYGON);
-      glVertex2f(-0.8f, 0.8f);
-      glVertex2f(-0.7f, 0.8f);
-      glVertex2f(-0.7f, 0.7f);
-      glVertex2f(-0.8f, 0.7f);
-  glEnd();
-
-  glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 0.88f);
-
-  glBegin(GL_POLYGON);
-      glVertex2f(-0.6f, 0.8f);
-      glVertex2f(-0.5f, 0.8f);
-      glVertex2f(-0.5f, 0.7f);
-      glVertex2f(-0.6f, 0.7f);
-  glEnd();
-
-  glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 0.88f);
-
-  glBegin(GL_POLYGON);
-      glVertex2f(-0.4f, 0.8f);
-      glVertex2f(-0.3f, 0.8f);
-      glVertex2f(-0.3f, 0.7f);
-      glVertex2f(-0.4f, 0.7f);
-  glEnd();
-
-  glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 0.88f);
-
-  glBegin(GL_POLYGON);
-      glVertex2f(-0.2f, 0.8f);
-      glVertex2f(-0.1f, 0.8f);
-      glVertex2f(-0.1f, 0.7f);
-      glVertex2f(-0.2f, 0.7f);
-  glEnd();
-
-  glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 0.88f);
-
-  glBegin(GL_POLYGON);
-      glVertex2f(0.0f, 0.8f);
-      glVertex2f(0.1f, 0.8f);
-      glVertex2f(0.1f, 0.7f);
-      glVertex2f(0.0f, 0.7f);
-  glEnd();
-
-  //Segunda fileira
-  glLoadIdentity();
-   glColor3f(0.94f, 1.0f, 0.94f);
-
-  glBegin(GL_POLYGON);
-      glVertex2f(-0.8f, 0.6f);
-      glVertex2f(-0.7f, 0.6f);
-      glVertex2f(-0.7f, 0.5f);
-      glVertex2f(-0.8f, 0.5f);
-  glEnd();
-
-  glLoadIdentity();
-   glColor3f(0.94f, 1.0f, 0.94f);
-
-  glBegin(GL_POLYGON);
-      glVertex2f(-0.6f, 0.6f);
-      glVertex2f(-0.5f, 0.6f);
-      glVertex2f(-0.5f, 0.5f);
-      glVertex2f(-0.6f, 0.5f);
-  glEnd();
-
-  glLoadIdentity();
-   glColor3f(0.94f, 1.0f, 0.94f);
-
-  glBegin(GL_POLYGON);
-      glVertex2f(-0.4f, 0.6f);
-      glVertex2f(-0.3f, 0.6f);
-      glVertex2f(-0.3f, 0.5f);
-      glVertex2f(-0.4f, 0.5f);
-  glEnd();
-
-  glLoadIdentity();
-   glColor3f(0.94f, 1.0f, 0.94f);
-
-  glBegin(GL_POLYGON);
-      glVertex2f(-0.2f, 0.6f);
-      glVertex2f(-0.1f, 0.6f);
-      glVertex2f(-0.1f, 0.5f);
-      glVertex2f(-0.2f, 0.5f);
-  glEnd();
-
-  glLoadIdentity();
-   glColor3f(0.94f, 1.0f, 0.94f);
-
-  glBegin(GL_POLYGON);
-      glVertex2f(0.0f, 0.6f);
-      glVertex2f(0.1f, 0.6f);
-      glVertex2f(0.1f, 0.5f);
-      glVertex2f(0.0f, 0.5f);
-  glEnd();
-
-//Terceira fileira
-
-glLoadIdentity();
- glColor3f(1.0f, 1.0f, 0.88f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(-0.8f, 0.4f);
-    glVertex2f(-0.7f, 0.4f);
-    glVertex2f(-0.7f, 0.3f);
-    glVertex2f(-0.8f, 0.3f);
-glEnd();
-
-glLoadIdentity();
- glColor3f(1.0f, 1.0f, 0.88f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(-0.6f, 0.4f);
-    glVertex2f(-0.5f, 0.4f);
-    glVertex2f(-0.5f, 0.3f);
-    glVertex2f(-0.6f, 0.3f);
-glEnd();
-
-glLoadIdentity();
- glColor3f(1.0f, 1.0f, 0.88f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(-0.4f, 0.4f);
-    glVertex2f(-0.3f, 0.4f);
-    glVertex2f(-0.3f, 0.3f);
-    glVertex2f(-0.4f, 0.3f);
-glEnd();
-
-glLoadIdentity();
- glColor3f(1.0f, 1.0f, 0.88f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(-0.2f, 0.4f);
-    glVertex2f(-0.1f, 0.4f);
-    glVertex2f(-0.1f, 0.3f);
-    glVertex2f(-0.2f, 0.3f);
-glEnd();
-
-glLoadIdentity();
- glColor3f(1.0f, 1.0f, 0.88f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(0.0f, 0.4f);
-    glVertex2f(0.1f, 0.4f);
-    glVertex2f(0.1f, 0.3f);
-    glVertex2f(0.0f, 0.3f);
-glEnd();
-
-//Quarta fileira
-
-glLoadIdentity();
- glColor3f(0.94f, 1.0f, 0.94f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(-0.8f, 0.2f);
-    glVertex2f(-0.7f, 0.2f);
-    glVertex2f(-0.7f, 0.1f);
-    glVertex2f(-0.8f, 0.1f);
-glEnd();
-
-glLoadIdentity();
- glColor3f(0.94f, 1.0f, 0.94f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(-0.6f, 0.2f);
-    glVertex2f(-0.5f, 0.2f);
-    glVertex2f(-0.5f, 0.1f);
-    glVertex2f(-0.6f, 0.1f);
-glEnd();
-
-glLoadIdentity();
- glColor3f(0.94f, 1.0f, 0.94f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(-0.4f, 0.2f);
-    glVertex2f(-0.3f, 0.2f);
-    glVertex2f(-0.3f, 0.1f);
-    glVertex2f(-0.4f, 0.1f);
-glEnd();
-
-glLoadIdentity();
- glColor3f(0.94f, 1.0f, 0.94f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(-0.2f, 0.2f);
-    glVertex2f(-0.1f, 0.2f);
-    glVertex2f(-0.1f, 0.1f);
-    glVertex2f(-0.2f, 0.1f);
-glEnd();
-
-glLoadIdentity();
- glColor3f(0.94f, 1.0f, 0.94f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(0.0f, 0.2f);
-    glVertex2f(0.1f, 0.2f);
-    glVertex2f(0.1f, 0.1f);
-    glVertex2f(0.0f, 0.1f);
-glEnd();
-
-//Quinta fileira
-
-glLoadIdentity();
- glColor3f(1.0f, 1.0f, 0.88f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(-0.8f, 0.0f);
-    glVertex2f(-0.7f, 0.0f);
-    glVertex2f(-0.7f, -0.1f);
-    glVertex2f(-0.8f, -0.1f);
-glEnd();
-
-glLoadIdentity();
- glColor3f(1.0f, 1.0f, 0.88f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(-0.6f, 0.0f);
-    glVertex2f(-0.5f, 0.0f);
-    glVertex2f(-0.5f, -0.1f);
-    glVertex2f(-0.6f, -0.1f);
-glEnd();
-
-glLoadIdentity();
- glColor3f(1.0f, 1.0f, 0.88f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(-0.4f, 0.0f);
-    glVertex2f(-0.3f, 0.0f);
-    glVertex2f(-0.3f, -0.1f);
-    glVertex2f(-0.4f, -0.1f);
-glEnd();
-
-glLoadIdentity();
- glColor3f(1.0f, 1.0f, 0.88f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(-0.2f, 0.0f);
-    glVertex2f(-0.1f, 0.0f);
-    glVertex2f(-0.1f, -0.1f);
-    glVertex2f(-0.2f, -0.1f);
-glEnd();
-
-glLoadIdentity();
- glColor3f(1.0f, 1.0f, 0.88f);
-
-glBegin(GL_POLYGON);
-    glVertex2f(0.0f, 0.0f);
-    glVertex2f(0.1f, 0.0f);
-    glVertex2f(0.1f, -0.1f);
-    glVertex2f(0.0f, -0.1f);
-glEnd();
-
-}
-
-// Funусo para desenhar a base do objeto
-void DesenhaAviao(){
-
-    glColor3f(0.83f,0.83f,0.83f);
-    glLineWidth(2);
-    glBegin(GL_TRIANGLES);
-        glVertex2f(-0.3f,-0.8f);
-        glVertex2f(0.3f,-0.8f);
-        glVertex2f(0.0f,0.0f);
-    glEnd();
-
-}
-
-void DesenhaMisseis(){
-
-    glColor3f(1.0f,0.0f,0.0f);
-    glLineWidth(2);
-    glBegin(GL_POLYGON);
-        glVertex2f(-1.0f,-1.0f);
-        glVertex2f(-1.0f,-0.7f);
-        glVertex2f(-0.9f,-0.6f);
-        glVertex2f(-0.8f,-0.7f);
-        glVertex2f(-0.8f,-1.0f);
-    glEnd();
-}
-
-// Funусo callback de redesenho da janela de visualizaусo
-void Desenha(void)
-{
-    // Muda para o sistema de coordenadas do modelo
-    glMatrixMode(GL_MODELVIEW);
-    // Inicializa a matriz de transformaусo corrente
+void desenhaAviao(){
+	glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    // Limpa a janela de visualizaусo com a cor
-    // de fundo definida previamente
+	glColor3f(1.0f,1.0f,1.0f);
+
+	glColor3f(1.0f,1.0f,1.0f);
+    glLineWidth(2);
+    
+    glBegin(GL_TRIANGLES);
+        glVertex2f(naveX,naveY);
+        glVertex2f(naveX + larguraNave,naveY);
+        glVertex2f(naveX + (larguraNave/2),naveY+alturaNave);
+    glEnd();
+
+}
+
+void desenhaInimigos(){
+	glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+ 
     glClear(GL_COLOR_BUFFER_BIT);
+ 	
+ 	//primeira fileira
+    glColor3f(1.0f, 1.0f, 0.88f);
+    
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox,fileira1y + alturaInimigo);
+      glVertex2f(moveInimigox, fileira1y);
+      glVertex2f(moveInimigox + larguraInimigo, fileira1y);
+      glVertex2f(moveInimigox + larguraInimigo, fileira1y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX,fileira1y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX, fileira1y);
+      glVertex2f(moveInimigox + distanciaX + larguraInimigo, fileira1y);
+      glVertex2f(moveInimigox + distanciaX + larguraInimigo, fileira1y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*2,fileira1y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*2, fileira1y);
+      glVertex2f(moveInimigox + distanciaX*2 + larguraInimigo, fileira1y);
+      glVertex2f(moveInimigox + distanciaX*2 + larguraInimigo, fileira1y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*3,fileira1y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*3, fileira1y);
+      glVertex2f(moveInimigox + distanciaX*3 + larguraInimigo, fileira1y);
+      glVertex2f(moveInimigox + distanciaX*3 + larguraInimigo, fileira1y + alturaInimigo);
+  	glEnd();
+	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*4,fileira1y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*4, fileira1y);
+      glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira1y);
+      glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira1y + alturaInimigo);
+  	glEnd();
+  	
+  	//segunda fileira
+  	glColor3f(0.94f, 1.0f, 0.94f);
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox,fileira2y + alturaInimigo);
+      glVertex2f(moveInimigox, fileira2y);
+      glVertex2f(moveInimigox + larguraInimigo, fileira2y);
+      glVertex2f(moveInimigox + larguraInimigo, fileira2y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX,fileira2y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX, fileira2y);
+      glVertex2f(moveInimigox + distanciaX + larguraInimigo, fileira2y);
+      glVertex2f(moveInimigox + distanciaX + larguraInimigo, fileira2y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*2,fileira2y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*2, fileira2y);
+      glVertex2f(moveInimigox + distanciaX*2 + larguraInimigo, fileira2y);
+      glVertex2f(moveInimigox + distanciaX*2 + larguraInimigo, fileira2y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*3,fileira2y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*3, fileira2y);
+      glVertex2f(moveInimigox + distanciaX*3 + larguraInimigo, fileira2y);
+      glVertex2f(moveInimigox + distanciaX*3 + larguraInimigo, fileira2y + alturaInimigo);
+  	glEnd();
+	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*4,fileira2y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*4, fileira2y);
+      glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira2y);
+      glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira2y + alturaInimigo);
+  	glEnd();
 
-    glTranslatef(aviao_x,0.0f,0.0f);
-    glTranslatef(0.0f,-0.7f,0.0f);
-    glScalef(0.3f,0.3f,0.0f);
-    glPushMatrix();
+  	//terceira fileira
+  	glColor3f(1.0f, 1.0f, 0.88f);
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox,fileira3y + alturaInimigo);
+      glVertex2f(moveInimigox, fileira3y);
+      glVertex2f(moveInimigox + larguraInimigo, fileira3y);
+      glVertex2f(moveInimigox + larguraInimigo, fileira3y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX,fileira3y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX, fileira3y);
+      glVertex2f(moveInimigox + distanciaX + larguraInimigo, fileira3y);
+      glVertex2f(moveInimigox + distanciaX + larguraInimigo, fileira3y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*2,fileira3y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*2, fileira3y);
+      glVertex2f(moveInimigox + distanciaX*2 + larguraInimigo, fileira3y);
+      glVertex2f(moveInimigox + distanciaX*2 + larguraInimigo, fileira3y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*3,fileira3y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*3, fileira3y);
+      glVertex2f(moveInimigox + distanciaX*3 + larguraInimigo, fileira3y);
+      glVertex2f(moveInimigox + distanciaX*3 + larguraInimigo, fileira3y + alturaInimigo);
+  	glEnd();
+	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*4,fileira3y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*4, fileira3y);
+      glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira3y);
+      glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira3y + alturaInimigo);
+  	glEnd();
+  	
+  	//quarta fileira
+  	glColor3f(0.94f, 1.0f, 0.94f);
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox,fileira4y + alturaInimigo);
+      glVertex2f(moveInimigox, fileira4y);
+      glVertex2f(moveInimigox + larguraInimigo, fileira4y);
+      glVertex2f(moveInimigox + larguraInimigo, fileira4y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX,fileira4y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX, fileira4y);
+      glVertex2f(moveInimigox + distanciaX + larguraInimigo, fileira4y);
+      glVertex2f(moveInimigox + distanciaX + larguraInimigo, fileira4y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*2,fileira4y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*2, fileira4y);
+      glVertex2f(moveInimigox + distanciaX*2 + larguraInimigo, fileira4y);
+      glVertex2f(moveInimigox + distanciaX*2 + larguraInimigo, fileira4y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*3,fileira4y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*3, fileira4y);
+      glVertex2f(moveInimigox + distanciaX*3 + larguraInimigo, fileira4y);
+      glVertex2f(moveInimigox + distanciaX*3 + larguraInimigo, fileira4y + alturaInimigo);
+  	glEnd();
+	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*4,fileira4y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*4, fileira4y);
+      glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira4y);
+      glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira4y + alturaInimigo);
+  	glEnd();
+  	
+  	//quinta fileira
+  	glColor3f(1.0f, 1.0f, 0.88f);
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox,fileira5y + alturaInimigo);
+      glVertex2f(moveInimigox, fileira5y);
+      glVertex2f(moveInimigox + larguraInimigo, fileira5y);
+      glVertex2f(moveInimigox + larguraInimigo, fileira5y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX,fileira5y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX, fileira5y);
+      glVertex2f(moveInimigox + distanciaX + larguraInimigo, fileira5y);
+      glVertex2f(moveInimigox + distanciaX + larguraInimigo, fileira5y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*2,fileira5y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*2, fileira5y);
+      glVertex2f(moveInimigox + distanciaX*2 + larguraInimigo, fileira5y);
+      glVertex2f(moveInimigox + distanciaX*2 + larguraInimigo, fileira5y + alturaInimigo);
+  	glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*3,fileira5y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*3, fileira5y);
+      glVertex2f(moveInimigox + distanciaX*3 + larguraInimigo, fileira5y);
+      glVertex2f(moveInimigox + distanciaX*3 + larguraInimigo, fileira5y + alturaInimigo);
+  	glEnd();
+	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox + distanciaX*4,fileira5y + alturaInimigo);
+      glVertex2f(moveInimigox + distanciaX*4, fileira5y);
+      glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira5y);
+      glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira5y + alturaInimigo);
+  	glEnd();
+}
 
-    if(missel2_moving){
-        glTranslatef(-aviao_x,0.0f,0.0f);
-        glTranslatef(missel2_tx,0.0f,0.0f);
-    }
-
-    //Mьssel 2;
-    glTranslatef(0.0f,missel2_y,0.0f);
-    glTranslatef(1.8f,0.0f,0.0f);
-    DesenhaMisseis();
-
-    glPopMatrix(); // Carrega a identidade = Limpa a matrix de transformaушes.
-    glPushMatrix();
-
-    if(missel1_moving){
-        glTranslatef(-aviao_x,0.0f,0.0f);
-        glTranslatef(missel1_tx,0.0f,0.0f);
-    }
-    //Mьssel 1.
-    glTranslatef(0.0f,missel1_y,0.0f);
-    DesenhaMisseis();
-
-    glPopMatrix(); //Pro jatinho nao sair junto com o missel 1.
-    // Desenha o jatinho.
-    DesenhaAviao();
-
-
-    glTranslatef(0.0f, inimigo_y, 0.0f);
-    DesenhaInimigos();
-
-    // Executa os comandos OpenGL
+void display(void) {
+	glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    desenhaInimigos();
+    desenhaAviao();
+	glutSwapBuffers();
     glFlush();
 }
 
-// Funусo callback chamada quando o tamanho da janela ж alterado
-void AlteraTamanhoJanela(GLsizei w, GLsizei h)
-{
-    GLsizei largura, altura;
-
-    // Evita a divisao por zero
-    if(h == 0) h = 1;
-
-    // Atualiza as variрveis
-    largura = w;
-    altura = h;
-
-    // Especifica as dimensшes da Viewport
-    glViewport(0, 0, largura, altura);
-
-    // Inicializa o sistema de coordenadas
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    // Estabelece a janela de seleусo (esquerda, direita, inferior,
-    // superior) mantendo a proporусo com a janela de visualizaусo
-    if (largura <= altura)
-    {
-        gluOrtho2D (-1.0f, 1.0f, -1.0f*altura/largura, 1.0f*altura/largura);
-    }
-    else
-    {
-        gluOrtho2D (-1.0f*largura/altura, 1.0f*largura/altura, -1.0f, 1.0f);
-    }
+void move_inimigos(int passo){
+	if(direcaoX == DIREITA){
+		moveInimigox += passo;
+		if(moveInimigox + distanciaX*4+larguraInimigo >= 799){
+			fileira1y -= 30;
+			fileira2y -= 30;
+			fileira3y -= 30;
+			fileira4y -= 30;
+			fileira5y -= 30;
+			direcaoX = ESQUERDA;
+		}
+	}
+	else{
+		moveInimigox -= passo;
+		if(moveInimigox == 0){
+			direcaoX = DIREITA;
+			fileira1y -= 30;
+			fileira2y -= 30;
+			fileira3y -= 30;
+			fileira4y -= 30;
+			fileira5y -= 30;
+		}
+	}
+	glutPostRedisplay();
+    glutTimerFunc(20, move_inimigos, passo);
 }
 
-// Funусo callback chamada para gerenciar eventos de teclas especiais(F1,PgDn,...)
 void TeclasEspeciais(int key, int x, int y)
 {
     if(key == GLUT_KEY_LEFT)
     {
-        aviao_x-=0.05;
-        if ( aviao_x < -1.5f )
-            aviao_x = -1.5f;
+        naveX -= 10;
+        if (naveX <= ortholeft)
+            naveX = 0;
     }
     if(key == GLUT_KEY_RIGHT)
     {
-        aviao_x+=0.05;
-        if ( aviao_x > 1.5f )
-            aviao_x = 1.5f;
+        naveX += 10;
+        if ( naveX+larguraNave >= orthoright )
+            naveX = orthoright-1;
     }
-    if(key == GLUT_KEY_UP){
+    /*if(key == GLUT_KEY_UP){
         missel1_moving = true;
         missel1_tx = aviao_x;
         glutTimerFunc(10, move_missel1, 1);
         missel2_moving = true;
         missel2_tx = aviao_x;
         glutTimerFunc(10, move_missel2, 1);
-    }
+    }*/
 
     glutPostRedisplay();
 }
-
-
-
-// Funусo responsрvel por inicializar parРmetros e variрveis
-void Inicializa (void)
-{
-    // Define a cor de fundo da janela de visualizaусo como branca
-    glClearColor(0.18f, 0.31f, 0.31f, 0.0f);
-    gluOrtho2D (-1.0f, 1.0f, -1.0f, 1.0f);
-    glViewport(0, 0, 500, 500);
-}
-
-
-
-// Programa Principal
-int main(int argc, char* argv[])
-{
-    glutInit(&argc, argv); // Inicia uma instРncia da glut
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-    glutInitWindowPosition(100,100);
-    glutInitWindowSize(800,600);
-    glutCreateWindow("Space Invaders!");
-
-    // Registra a funусo callback de redesenho da janela de visualizaусo
-    glutDisplayFunc(Desenha);
-
-    // Registra a funусo callback de redimensionamento da janela de visualizaусo
-    glutReshapeFunc(AlteraTamanhoJanela);
-
-    // Registra a funусo callback para tratamento das teclas especiais
+ 
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitWindowSize(largura, altura);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("space Invaders!");
+ 	
+    iniciaParametrosVisualizacao();
+    glutDisplayFunc(display);
     glutSpecialFunc(TeclasEspeciais);
-
-    // Chama a funусo responsрvel por fazer as inicializaушes
-    Inicializa();
-
-    glutTimerFunc(0, move_missel1, 0); // Timer para mover o missel 1
-    glutTimerFunc(0, move_missel2, 0); // ..........................2
-    glutTimerFunc(0, move_inimigos, 0);// Timer para mover os inimigos
-
-    // Inicia o processamento e aguarda interaушes do usuрrio
+	glutTimerFunc(10, move_inimigos, 5);
     glutMainLoop();
-
     return 0;
 }

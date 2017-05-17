@@ -26,26 +26,29 @@
 
 GLfloat missel1_y = 0, missel2_y = 0;
 GLfloat aviao_x = 0, missel1_tx = 0, missel2_tx = 0;
+GLfloat inimigo_x = 0, inimigo_y = 0;
 
 bool missel1_moving = false, missel2_moving = false;
 
-int msec_missel1 = 0, msec_missel2 = 0;
+int msec_missel1 = 0, msec_missel2 = 0, msec_inimigo = 0;
 
 
 void move_missel1(int passo){
-
     missel1_y += (1.0*passo);
     glutPostRedisplay();
-
     glutTimerFunc(10, move_missel1, passo);
 }
 
 void move_missel2(int passo){
-
     missel2_y += (1.0*passo);
     glutPostRedisplay();
-
     glutTimerFunc(10, move_missel2, passo);
+}
+
+void move_inimigos(int passo){
+    inimigo_x += (1.0*passo);
+    glutPostRedisplay();
+    glutTimerFunc(10, move_inimigos, passo);
 }
 
 //Funcao para desenhar os inimigos
@@ -379,6 +382,8 @@ void Desenha(void)
     // Desenha o jatinho.
     DesenhaAviao();
 
+
+    glTranslatef(0.0f, inimigo_y, 0.0f);
     DesenhaInimigos();
 
     // Executa os comandos OpenGL
@@ -479,6 +484,7 @@ int main(int argc, char* argv[])
 
     glutTimerFunc(0, move_missel1, 0); // Timer para mover o missel 1
     glutTimerFunc(0, move_missel2, 0); // ..........................2
+    glutTimerFunc(0, move_inimigos, 0);// Timer para mover os inimigos
 
     // Inicia o processamento e aguarda interaушes do usuрrio
     glutMainLoop();

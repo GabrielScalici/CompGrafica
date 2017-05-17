@@ -1,5 +1,18 @@
-#include <stdlib.h>
+
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include <GLUT/glut.h>
+#else
+#ifdef _WIN32
+#include <windows.h>
+#endif
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include <GL/glut.h>
+#endif
+
+#include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 #include <cmath>
@@ -34,7 +47,7 @@ void desenhaAviao(){
 
 	glColor3f(1.0f,1.0f,1.0f);
     glLineWidth(2);
-    
+
     glBegin(GL_TRIANGLES);
         glVertex2f(naveX,naveY);
         glVertex2f(naveX + larguraNave,naveY);
@@ -46,12 +59,12 @@ void desenhaAviao(){
 void desenhaInimigos(){
 	glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
- 
+
     glClear(GL_COLOR_BUFFER_BIT);
- 	
+
  	//primeira fileira
     glColor3f(1.0f, 1.0f, 0.88f);
-    
+
   	glBegin(GL_POLYGON);
       glVertex2f(moveInimigox,fileira1y + alturaInimigo);
       glVertex2f(moveInimigox, fileira1y);
@@ -82,7 +95,7 @@ void desenhaInimigos(){
       glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira1y);
       glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira1y + alturaInimigo);
   	glEnd();
-  	
+
   	//segunda fileira
   	glColor3f(0.94f, 1.0f, 0.94f);
   	glBegin(GL_POLYGON);
@@ -148,7 +161,7 @@ void desenhaInimigos(){
       glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira3y);
       glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira3y + alturaInimigo);
   	glEnd();
-  	
+
   	//quarta fileira
   	glColor3f(0.94f, 1.0f, 0.94f);
   	glBegin(GL_POLYGON);
@@ -181,7 +194,7 @@ void desenhaInimigos(){
       glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira4y);
       glVertex2f(moveInimigox + distanciaX*4 + larguraInimigo, fileira4y + alturaInimigo);
   	glEnd();
-  	
+
   	//quinta fileira
   	glColor3f(1.0f, 1.0f, 0.88f);
   	glBegin(GL_POLYGON);
@@ -277,14 +290,14 @@ void TeclasEspeciais(int key, int x, int y)
 
     glutPostRedisplay();
 }
- 
+
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(largura, altura);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("space Invaders!");
- 	
+
     iniciaParametrosVisualizacao();
     glutDisplayFunc(display);
     glutSpecialFunc(TeclasEspeciais);

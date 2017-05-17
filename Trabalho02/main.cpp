@@ -1,12 +1,16 @@
   /*
-  *  Trabalho 02 de Computacao Grafica
-  *  "Space Invader"
+  *  Trabalho 02 da matéria de Computacao Grafica (ICMC), usando OpenGL.
+  *  Tema: "Space Invader".
   *
+  *  Alunos:
   *  Gabriel Henrique Campos Scalici 9292970
   *  Keith Tsukada Sasaki
   *
+  *  DATA: 21/05/2017
+  *
   */
 
+//Includes corretos para rodar no macOS, Windows e Linux
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
@@ -35,6 +39,7 @@ void move_missel1(int passo){
 
     glutTimerFunc(10, move_missel1, passo);
 }
+
 void move_missel2(int passo){
 
     missel2_y += (1.0*passo);
@@ -43,11 +48,12 @@ void move_missel2(int passo){
     glutTimerFunc(10, move_missel2, passo);
 }
 
+//Funcao para desenhar os inimigos
 void DesenhaInimigos(){
   //Inicio na parte superior esquerda
   //Primeira fileira
   glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 1.0f);
+   glColor3f(1.0f, 1.0f, 0.88f);
 
   glBegin(GL_POLYGON);
       glVertex2f(-0.8f, 0.8f);
@@ -57,7 +63,7 @@ void DesenhaInimigos(){
   glEnd();
 
   glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 1.0f);
+   glColor3f(1.0f, 1.0f, 0.88f);
 
   glBegin(GL_POLYGON);
       glVertex2f(-0.6f, 0.8f);
@@ -67,7 +73,7 @@ void DesenhaInimigos(){
   glEnd();
 
   glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 1.0f);
+   glColor3f(1.0f, 1.0f, 0.88f);
 
   glBegin(GL_POLYGON);
       glVertex2f(-0.4f, 0.8f);
@@ -77,7 +83,7 @@ void DesenhaInimigos(){
   glEnd();
 
   glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 1.0f);
+   glColor3f(1.0f, 1.0f, 0.88f);
 
   glBegin(GL_POLYGON);
       glVertex2f(-0.2f, 0.8f);
@@ -87,7 +93,7 @@ void DesenhaInimigos(){
   glEnd();
 
   glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 1.0f);
+   glColor3f(1.0f, 1.0f, 0.88f);
 
   glBegin(GL_POLYGON);
       glVertex2f(0.0f, 0.8f);
@@ -98,7 +104,7 @@ void DesenhaInimigos(){
 
   //Segunda fileira
   glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 1.0f);
+   glColor3f(0.94f, 1.0f, 0.94f);
 
   glBegin(GL_POLYGON);
       glVertex2f(-0.8f, 0.6f);
@@ -108,7 +114,7 @@ void DesenhaInimigos(){
   glEnd();
 
   glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 1.0f);
+   glColor3f(0.94f, 1.0f, 0.94f);
 
   glBegin(GL_POLYGON);
       glVertex2f(-0.6f, 0.6f);
@@ -118,7 +124,7 @@ void DesenhaInimigos(){
   glEnd();
 
   glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 1.0f);
+   glColor3f(0.94f, 1.0f, 0.94f);
 
   glBegin(GL_POLYGON);
       glVertex2f(-0.4f, 0.6f);
@@ -128,7 +134,7 @@ void DesenhaInimigos(){
   glEnd();
 
   glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 1.0f);
+   glColor3f(0.94f, 1.0f, 0.94f);
 
   glBegin(GL_POLYGON);
       glVertex2f(-0.2f, 0.6f);
@@ -138,7 +144,7 @@ void DesenhaInimigos(){
   glEnd();
 
   glLoadIdentity();
-   glColor3f(1.0f, 1.0f, 1.0f);
+   glColor3f(0.94f, 1.0f, 0.94f);
 
   glBegin(GL_POLYGON);
       glVertex2f(0.0f, 0.6f);
@@ -150,7 +156,7 @@ void DesenhaInimigos(){
 //Terceira fileira
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(1.0f, 1.0f, 0.88f);
 
 glBegin(GL_POLYGON);
     glVertex2f(-0.8f, 0.4f);
@@ -160,7 +166,7 @@ glBegin(GL_POLYGON);
 glEnd();
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(1.0f, 1.0f, 0.88f);
 
 glBegin(GL_POLYGON);
     glVertex2f(-0.6f, 0.4f);
@@ -170,7 +176,7 @@ glBegin(GL_POLYGON);
 glEnd();
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(1.0f, 1.0f, 0.88f);
 
 glBegin(GL_POLYGON);
     glVertex2f(-0.4f, 0.4f);
@@ -180,7 +186,7 @@ glBegin(GL_POLYGON);
 glEnd();
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(1.0f, 1.0f, 0.88f);
 
 glBegin(GL_POLYGON);
     glVertex2f(-0.2f, 0.4f);
@@ -190,7 +196,7 @@ glBegin(GL_POLYGON);
 glEnd();
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(1.0f, 1.0f, 0.88f);
 
 glBegin(GL_POLYGON);
     glVertex2f(0.0f, 0.4f);
@@ -202,7 +208,7 @@ glEnd();
 //Quarta fileira
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(0.94f, 1.0f, 0.94f);
 
 glBegin(GL_POLYGON);
     glVertex2f(-0.8f, 0.2f);
@@ -212,7 +218,7 @@ glBegin(GL_POLYGON);
 glEnd();
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(0.94f, 1.0f, 0.94f);
 
 glBegin(GL_POLYGON);
     glVertex2f(-0.6f, 0.2f);
@@ -222,7 +228,7 @@ glBegin(GL_POLYGON);
 glEnd();
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(0.94f, 1.0f, 0.94f);
 
 glBegin(GL_POLYGON);
     glVertex2f(-0.4f, 0.2f);
@@ -232,7 +238,7 @@ glBegin(GL_POLYGON);
 glEnd();
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(0.94f, 1.0f, 0.94f);
 
 glBegin(GL_POLYGON);
     glVertex2f(-0.2f, 0.2f);
@@ -242,7 +248,7 @@ glBegin(GL_POLYGON);
 glEnd();
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(0.94f, 1.0f, 0.94f);
 
 glBegin(GL_POLYGON);
     glVertex2f(0.0f, 0.2f);
@@ -254,7 +260,7 @@ glEnd();
 //Quinta fileira
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(1.0f, 1.0f, 0.88f);
 
 glBegin(GL_POLYGON);
     glVertex2f(-0.8f, 0.0f);
@@ -264,7 +270,7 @@ glBegin(GL_POLYGON);
 glEnd();
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(1.0f, 1.0f, 0.88f);
 
 glBegin(GL_POLYGON);
     glVertex2f(-0.6f, 0.0f);
@@ -274,7 +280,7 @@ glBegin(GL_POLYGON);
 glEnd();
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(1.0f, 1.0f, 0.88f);
 
 glBegin(GL_POLYGON);
     glVertex2f(-0.4f, 0.0f);
@@ -284,7 +290,7 @@ glBegin(GL_POLYGON);
 glEnd();
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(1.0f, 1.0f, 0.88f);
 
 glBegin(GL_POLYGON);
     glVertex2f(-0.2f, 0.0f);
@@ -294,7 +300,7 @@ glBegin(GL_POLYGON);
 glEnd();
 
 glLoadIdentity();
- glColor3f(1.0f, 1.0f, 1.0f);
+ glColor3f(1.0f, 1.0f, 0.88f);
 
 glBegin(GL_POLYGON);
     glVertex2f(0.0f, 0.0f);
@@ -302,7 +308,6 @@ glBegin(GL_POLYGON);
     glVertex2f(0.1f, -0.1f);
     glVertex2f(0.0f, -0.1f);
 glEnd();
-
 
 }
 

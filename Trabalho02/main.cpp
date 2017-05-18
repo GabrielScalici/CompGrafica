@@ -1,9 +1,15 @@
  /*
+  *  Trabalho 02 da matéria de Computacao Grafica (ICMC), usando OpenGL.
+  *  Tema: "Space Invader".
   *
+  *  Alunos:
+  *  Gabriel Henrique Campos Scalici 9292970
+  *  Keith Tsukada Sasaki
   *
-  *
+  *  DATA: 21/05/2017
   *
   */
+
 
 #ifdef __APPLE__
 #include <OpenGL/gl.h>

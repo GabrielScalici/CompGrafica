@@ -1,3 +1,9 @@
+ /*
+  *
+  *
+  *
+  *
+  */
 
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
@@ -31,6 +37,9 @@ GLint naveX = 370, naveY = 20, larguraNave = 60, alturaNave = 50;
 //TELA
 GLdouble ortholeft = 0, orthoright = 800, orthobot = 0, orthotop = 600;
 GLsizei largura = 800, altura = 600;
+
+//MISSEIS
+
 
 void iniciaParametrosVisualizacao(void) {
     glClearColor(0.18f, 0.31f, 0.31f, 0.0f);
@@ -265,6 +274,11 @@ void move_inimigos(int passo){
     glutTimerFunc(20, move_inimigos, passo);
 }
 
+void move_missel(int passo){
+
+}
+
+
 void TeclasEspeciais(int key, int x, int y)
 {
     if(key == GLUT_KEY_LEFT)
@@ -280,12 +294,10 @@ void TeclasEspeciais(int key, int x, int y)
             naveX = orthoright-1;
     }
     /*if(key == GLUT_KEY_UP){
-        missel1_moving = true;
+        missel_moving = true;
         missel1_tx = aviao_x;
         glutTimerFunc(10, move_missel1, 1);
-        missel2_moving = true;
-        missel2_tx = aviao_x;
-        glutTimerFunc(10, move_missel2, 1);
+
     }*/
 
     glutPostRedisplay();
@@ -301,7 +313,7 @@ int main(int argc, char** argv) {
     iniciaParametrosVisualizacao();
     glutDisplayFunc(display);
     glutSpecialFunc(TeclasEspeciais);
-	glutTimerFunc(10, move_inimigos, 5);
+	  glutTimerFunc(10, move_inimigos, 5);
     glutMainLoop();
     return 0;
 }

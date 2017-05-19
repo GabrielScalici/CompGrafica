@@ -1,3 +1,16 @@
+ /*
+  *  Trabalho 02 da matéria de Computacao Grafica (ICMC), usando OpenGL.
+  *  Tema: "Space Invader".
+  *
+  *  Alunos:
+  *  Gabriel Henrique Campos Scalici 9292970
+  *  Keith Tsukada Sasaki
+  *
+  *  DATA: 21/05/2017
+  *
+  */
+
+
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
@@ -18,9 +31,6 @@
 
 #define DIREITA 1
 #define ESQUERDA 0
-#define SPACEBAR 32
-#define TRUE 1
-#define FALSE 0
 
 //INIMIGOS
 GLint posX = 0,moveInimigox = 0, larguraInimigo = 50, alturaInimigo = 15, distanciaX = 100;
@@ -34,37 +44,14 @@ GLint naveX = 370, naveY = 20, larguraNave = 60, alturaNave = 50;
 GLdouble ortholeft = 0, orthoright = 800, orthobot = 0, orthotop = 600;
 GLsizei largura = 800, altura = 600;
 
-//MISSEL
-GLint misselX = naveX, moveMisselY = 0, misselMoving = FALSE, aux = naveX;
+//MISSEIS
+
 
 void iniciaParametrosVisualizacao(void) {
     glClearColor(0.18f, 0.31f, 0.31f, 0.0f);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(ortholeft, orthoright, orthobot, orthotop);
-}
-
-void desenhaMissel(){
-	glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-	glColor3f(1.0f,0.0f,0.0f);
-    glPointSize(5.0);
-    glBegin(GL_POINTS);
-   	 	glVertex2i(misselX + (larguraNave/2-1) , 70 + moveMisselY);
-   		glEnd();
-   	glBegin(GL_POINTS);
-   		glVertex2i(misselX + (larguraNave/2-1) , 72 + moveMisselY);
-   	glEnd();
-   		glBegin(GL_POINTS);
-   		glVertex2i(misselX + (larguraNave/2-1) , 74 + moveMisselY);
-   	glEnd();
-   		glBegin(GL_POINTS);
-   		glVertex2i(misselX + (larguraNave/2-1) , 76 + moveMisselY);
-   	glEnd();
-   		glBegin(GL_POINTS);
-   		glVertex2i(misselX + (larguraNave/2-1) , 78 + moveMisselY);
-   	glEnd();
 }
 
 void desenhaAviao(){
@@ -81,15 +68,7 @@ void desenhaAviao(){
         glVertex2f(naveX + larguraNave,naveY);
         glVertex2f(naveX + (larguraNave/2),naveY+alturaNave);
     glEnd();
-}
 
-void desenhaInimigo(GLint x0, GLint y0,GLint x1, GLint y1,GLint x2, GLint y2,GLint x3, GLint y3){
-	glBegin(GL_POLYGON);
-      glVertex2f(x0,y0);
-      glVertex2f(x1, y1);
-      glVertex2f(x2, y2);
-      glVertex2f(x3, y3);
-  	glEnd();
 }
 
 void desenhaInimigos(){
@@ -101,14 +80,12 @@ void desenhaInimigos(){
  	//primeira fileira
     glColor3f(1.0f, 1.0f, 0.88f);
 
-    desenhaInimigo(moveInimigox,fileira1y + alturaInimigo,moveInimigox,fileira1y,moveInimigox + larguraInimigo,
-	fileira1y,moveInimigox + larguraInimigo,fileira1y + alturaInimigo);
-  	//glBegin(GL_POLYGON);
-     // glVertex2f(moveInimigox,fileira1y + alturaInimigo);
-     // glVertex2f(moveInimigox, fileira1y);
-     // glVertex2f(moveInimigox + larguraInimigo, fileira1y);
-     // glVertex2f(moveInimigox + larguraInimigo, fileira1y + alturaInimigo);
-  	//glEnd();
+  	glBegin(GL_POLYGON);
+      glVertex2f(moveInimigox,fileira1y + alturaInimigo);
+      glVertex2f(moveInimigox, fileira1y);
+      glVertex2f(moveInimigox + larguraInimigo, fileira1y);
+      glVertex2f(moveInimigox + larguraInimigo, fileira1y + alturaInimigo);
+  	glEnd();
   	glBegin(GL_POLYGON);
       glVertex2f(moveInimigox + distanciaX,fileira1y + alturaInimigo);
       glVertex2f(moveInimigox + distanciaX, fileira1y);
@@ -272,12 +249,11 @@ void display(void) {
     glLoadIdentity();
     desenhaInimigos();
     desenhaAviao();
-    desenhaMissel();
 	glutSwapBuffers();
     glFlush();
 }
 
-void moveInimigos(int passo){
+void move_inimigos(int passo){
 	if(direcaoX == DIREITA){
 		moveInimigox += passo;
 		if(moveInimigox + distanciaX*4+larguraInimigo >= 799){
@@ -301,20 +277,13 @@ void moveInimigos(int passo){
 		}
 	}
 	glutPostRedisplay();
-    glutTimerFunc(20, moveInimigos, passo);
+    glutTimerFunc(20, move_inimigos, passo);
 }
 
-void moveMissel(int passo){
-	if(moveMisselY + 71 >= orthotop){
-		misselMoving = FALSE;
-		moveMisselY = 0;
-		misselX = naveX;
-	}
-	if(misselMoving)
-    	moveMisselY += passo;
-    glutPostRedisplay();
-    glutTimerFunc(5, moveMissel, passo);
+void move_missel(int passo){
+
 }
+
 
 void TeclasEspeciais(int key, int x, int y)
 {
@@ -323,24 +292,19 @@ void TeclasEspeciais(int key, int x, int y)
         naveX -= 10;
         if (naveX <= ortholeft)
             naveX = 0;
-        if(!misselMoving)
-        	misselX = naveX;
     }
     if(key == GLUT_KEY_RIGHT)
     {
         naveX += 10;
-        if (naveX+larguraNave >= orthoright )
+        if ( naveX+larguraNave >= orthoright )
             naveX = orthoright-1;
-        if(!misselMoving)
-        	misselX = naveX;
     }
-    if(key == GLUT_KEY_UP){
-    	if(!misselMoving){
-        	misselX = naveX;
-        	misselMoving = TRUE;
-			glutTimerFunc(5, moveMissel, 1);
-    	}
-	}
+    /*if(key == GLUT_KEY_UP){
+        missel_moving = true;
+        missel1_tx = aviao_x;
+        glutTimerFunc(10, move_missel1, 1);
+
+    }*/
 
     glutPostRedisplay();
 }
@@ -355,7 +319,7 @@ int main(int argc, char** argv) {
     iniciaParametrosVisualizacao();
     glutDisplayFunc(display);
     glutSpecialFunc(TeclasEspeciais);
-	glutTimerFunc(10, moveInimigos, 3);
+	  glutTimerFunc(10, move_inimigos, 5);
     glutMainLoop();
     return 0;
 }

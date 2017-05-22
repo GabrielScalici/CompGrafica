@@ -12,7 +12,6 @@
 #endif
 
 
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -33,7 +32,7 @@ struct Inimigo{
 typedef struct Inimigo inimigo;
 
 //INIMIGOS
-inimigo inimigos[25]; //cria um vetor de inimigos
+inimigo inimigos[25];
 GLint posX = 0,moveInimigox = 0, larguraInimigo = 50, alturaInimigo = 15, distanciaX = 100;
 GLint fileira1y = 550, fileira2y = 520, fileira3y = 490, fileira4y = 460, fileira5y = 430;
 GLint inimigosX[25]; //variaveis que guardam a posicao x das naves
@@ -65,24 +64,34 @@ void iniciaParametrosVisualizacao(void) {
     gluOrtho2D(ortholeft, orthoright, orthobot, orthotop);
 }
 
-//funcao para desenhar o missel
 void desenhaMissel(){
 	glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
 	glColor3f(1.0f,0.0f,0.0f);
-
-   	glLineWidth(4.0);
-   	glBegin(GL_LINES); //desenha o missel em cima da nave
-   		glVertex2f(misselX, 70 + moveMisselY);
-    	glVertex2f(misselX, 82 + moveMisselY);
-    glEnd();
+    glPointSize(5.0);
+    glBegin(GL_POINTS);
+   	 	glVertex2i(misselX, 70 + moveMisselY);
+   		glEnd();
+   	glBegin(GL_POINTS);
+   		glVertex2i(misselX, 72 + moveMisselY);
+   	glEnd();
+   		glBegin(GL_POINTS);
+   		glVertex2i(misselX, 74 + moveMisselY);
+   	glEnd();
+   		glBegin(GL_POINTS);
+   		glVertex2i(misselX, 76 + moveMisselY);
+   	glEnd();
+   		glBegin(GL_POINTS);
+   		glVertex2i(misselX, 78 + moveMisselY);
+   	glEnd();
 }
 
-//funcao para desenhar o aviao
 void desenhaAviao(){
 	glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
+	glColor3f(1.0f,1.0f,1.0f);
 
 	glColor3f(1.0f,1.0f,1.0f);
     glLineWidth(2);
@@ -94,27 +103,6 @@ void desenhaAviao(){
     glEnd();
 }
 
-//funcao que verifica se algum inimigo vivo chegou ao final da tela
-int chegouNoFinal(){
-	int i;
-	for(i=0;i<25;i++){
-		if((inimigos[i].y == 70) && (vivos[i])) //chegou no fim da tela, acabou jogo
-			return 1;
-	}
-	return 0;
-}
-
-//funcao que verifica se todos os inimigos foram mortos
-int ganhouJogo(){
-	int i;
-	for(i=0;i<25;i++){
-		if(vivos[i]) //se ha algum vivo
-			return 0;
-	}
-	return 1;
-}
-
-//funcao que desenha os inimigos
 void desenhaInimigos(){
 	glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -433,7 +421,16 @@ void desenhaInimigos(){
   	inimigos[24].y = fileira5y;
 }
 
-//funcao para mover os inimigos alterando as coordenadas X e Y de cada nave
+void display(void) {
+	glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    desenhaInimigos();
+    desenhaAviao();
+    desenhaMissel();
+	glutSwapBuffers();
+    glFlush();
+}
+
 void moveInimigos(int passo){
 	if(direcaoX == DIREITA){
 		moveInimigox += passo;
@@ -457,34 +454,11 @@ void moveInimigos(int passo){
 			fileira5y -= 30;
 		}
 	}
-	if(chegouNoFinal()){
-		glClearColor(1.0, 0.0, 0.0, 0.0);
-        glClear(GL_COLOR_BUFFER_BIT);
-		passo = 0;
-		glutSpecialFunc(NULL);
-	}
 
 	glutPostRedisplay();
     glutTimerFunc(20, moveInimigos, passo);
 }
 
-//funcao de desenho
-void display(void) {
-	if(ganhouJogo()){
-		glClear(GL_COLOR_BUFFER_BIT);
-		glutTimerFunc(10, moveInimigos, 0);
-		glutSpecialFunc(NULL);
-	}
-	glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    desenhaInimigos();
-    desenhaAviao();
-    desenhaMissel();
-	glutSwapBuffers();
-    glFlush();
-}
-
-//funcao que verifica colisao do tiro com algum inimigo
 int colisao(GLint tiroX, GLint tiroY){
 	int i;
 
@@ -498,7 +472,6 @@ int colisao(GLint tiroX, GLint tiroY){
 	return 0;
 }
 
-//funcao que move o missel
 void moveMissel(int passo){
 	if(colisao(misselX,moveMisselY)){
 		misselMoving = FALSE;
@@ -513,10 +486,9 @@ void moveMissel(int passo){
 	if(misselMoving)
 		moveMisselY += passo;
     glutPostRedisplay();
-    glutTimerFunc(1, moveMissel, passo);
+    glutTimerFunc(3, moveMissel, passo);
 }
 
-//funcao que identifica quando uma tecla do teclado foi clicada
 void TeclasEspeciais(int key, int x, int y)
 {
     if(key == GLUT_KEY_LEFT)
@@ -539,7 +511,7 @@ void TeclasEspeciais(int key, int x, int y)
     	if(!misselMoving){
         	misselX = naveX + (larguraNave/2)-1;
         	misselMoving = TRUE;
-			glutTimerFunc(10, moveMissel,1);
+			glutTimerFunc(0, moveMissel, 5);
     	}
 	}
 
@@ -557,7 +529,7 @@ int main(int argc, char** argv) {
     iniciaParametrosVisualizacao();
     glutDisplayFunc(display);
     glutSpecialFunc(TeclasEspeciais);
-	glutTimerFunc(10, moveInimigos, 3);
+	glutTimerFunc(10, moveInimigos, 1);
     glutMainLoop();
     return 0;
 }

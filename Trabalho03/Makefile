@@ -1,3 +1,6 @@
+TEX = ./SOIL/image_DXT.c ./SOIL/image_helper.c ./SOIL/stb_image_aug.c ./SOIL/SOIL.c
+
+TEX_IN = ./SOIL
 
 all: compile run clean
 

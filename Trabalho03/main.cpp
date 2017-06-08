@@ -35,6 +35,7 @@ O - rotaciona para a esquerda no proprio eixo
 //Incluindo outros arquivos
 #include "camera.h"
 #include "obj.h"
+#include "./SOIL/SOIL.h"
 
 //Objeto da classe
 CCamera Camera;

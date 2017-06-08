@@ -1,35 +1,9 @@
 /**********************************************************************
-
-  Camera with OpenGL
-
-  March, 13th, 2003
-
-  This tutorial was written by Philipp Crocoll
-  Contact:
-	philipp.crocoll@web.de
-	www.codecolony.de
-
-  Every comment would be appreciated.
-
-  If you want to use parts of any code of mine:
-	let me know and
-	use it!
-
-**********************************************************************
-ESC: exit
-
-CAMERA movement:
-w : forwards
-s : backwards
-a : turn left
-d : turn right
-x : turn up
-y : turn down
-v : strafe right
-c : strafe left
-r : move up
-f : move down
-m/n : roll
+	Trabalho 03 da matéria de Computação gráfica
+	Tema: Ambiente 3D com movimentos e objeto de modelo 3D
+	Data: 02-06-2017
+	Autor: Gabriel Henrique C. Scalici 9292970
+				 Keith T. Sasaki 9293414
 
 ***********************************************************************/
 
@@ -39,18 +13,22 @@ m/n : roll
 #include <GL/glut.h>
 #endif
 
-int b_up = 0;
-int b_down = 0;
-int b_left = 0;
-int b_right = 0;
-
-
 #include "camera.h"
 #include "obj.h"
 #include <cstdlib>
 
 CCamera Camera;
+Obj *apple;
 
+int rot_x = 0;
+int rot_y = 0;
+int rot_z = 0;
+int angulo1 = 0;
+int angulo2 = 0;
+int angulo3 = 0;
+int aux_angle = 0;
+int temp = 0;
+int flag = 0;
 
 void reshape(int x, int y)
 {
@@ -68,6 +46,18 @@ void reshape(int x, int y)
 	glViewport(0,0,x,y);  //Use the whole window for rendering
 }
 
+void draw_apple(int ang1, int ang2, int ang3){
+	glColor3f(1.0,  1.0,  1.0 );
+	glTranslatef(0, 0, 0);
+	glScalef(-0.15, 0.15, 0.15);
+	//glRotatef(ang, rot_x, rot_y, rot_z);
+	glRotatef(ang1, 1.0, 0.0, 0.0);
+	glRotatef(ang2, 0.0, 1.0, 0.0);
+	glRotatef(ang3, 0.0, 0.0, 1.0);
+	drawObjWireframe(apple);
+}
+
+
 void Display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -75,95 +65,95 @@ void Display(void)
 
 	glTranslatef(0.0,-0.5,-6.0);
 
-
 	glColor3f(0.3,0.0,0.0);
 
 	glTranslatef(Camera.Position.x, Camera.Position.y, Camera.Position.z);
 
 
+	glBegin(GL_POLYGON);
+   glColor3f(   1.0,  0.0,  0.0 );
+   glVertex3f(  1.5, -0.5, -1.5 );
+   glVertex3f(  1.5, -0.5, 5.0 );
+   glVertex3f( -1.5, -0.5, 5.0 );
+   glVertex3f( -1.5, -0.5, -1.5 );
+   glEnd();
 
-	glBegin (GL_LINES);
+	//Pegando o modelo 3D
+	//glLoadIdentity();
+	//tamanho do obj carregado 3D
 
-		glColor3f(0.2,0.2,0.2);
-	  glVertex3f(0.0f,0.0f,0.0f);
-	  glVertex3f(Camera.UpVector.x,0.0,0.0);
-
-	  glVertex3f(Camera.UpVector.x,0.0,0.0);
-	  glVertex3f(Camera.UpVector.x,0.0,Camera.UpVector.z);
-
-	  glVertex3f(0.0f,0.0f,0.0f);
-	  glVertex3f(Camera.UpVector.x,0.0,Camera.UpVector.z);
-
-	  glVertex3f(Camera.UpVector.x,0.0,Camera.UpVector.z);
-	  glVertex3f(Camera.UpVector.x,Camera.UpVector.y,Camera.UpVector.z);
-
-	glColor3f(0.2,0.0,0.0);
-	  glVertex3f(0.0f,0.0f,0.0f);
-	  glVertex3f(Camera.RightVector.x,0.0,0.0);
-
-	  glVertex3f(Camera.RightVector.x,0.0,0.0);
-	  glVertex3f(Camera.RightVector.x,0.0,Camera.RightVector.z);
-
-	  glVertex3f(0.0f,0.0f,0.0f);
-	  glVertex3f(Camera.RightVector.x,0.0,Camera.RightVector.z);
-
-	  glVertex3f(Camera.RightVector.x,0.0,Camera.RightVector.z);
-	  glVertex3f(Camera.RightVector.x,Camera.RightVector.y,Camera.RightVector.z);
-
-	glColor3f(0.3,0.3,0.0);
-	  glVertex3f(0.0f,0.0f,0.0f);
-	  glVertex3f(Camera.ViewDir.x,0.0,0.0);
-
-	  glVertex3f(Camera.ViewDir.x,0.0,0.0);
-	  glVertex3f(Camera.ViewDir.x,0.0,Camera.ViewDir.z);
-
-	  glVertex3f(0.0f,0.0f,0.0f);
-	  glVertex3f(Camera.ViewDir.x,0.0,Camera.ViewDir.z);
-
-	  glVertex3f(Camera.ViewDir.x,0.0,Camera.ViewDir.z);
-	  glVertex3f(Camera.ViewDir.x,Camera.ViewDir.y,Camera.ViewDir.z);
-
-	glEnd();
-
-	glBegin (GL_LINES);
-glColor3f(1.0,1.0,1.0);
-	  glVertex3f(0.0f,0.0f,0.0f);
-	  glVertex3f(Camera.UpVector.x,Camera.UpVector.y,Camera.UpVector.z);
-
-	  glColor3f(1.0,0.0,0.0);
-	  glVertex3f(0.0f,0.0f,0.0f);
-	  glVertex3f(Camera.RightVector.x,Camera.RightVector.y,Camera.RightVector.z);
-
-	  glColor3f(1.0,1.0,0.0);
-	  glVertex3f(0.0f,0.0f,0.0f);
-	  glVertex3f(Camera.ViewDir.x,Camera.ViewDir.y,Camera.ViewDir.z);
-
-	glEnd();
-
-
+	draw_apple(angulo1, angulo2, angulo3);
 
 	glFlush();
 	glutSwapBuffers();
 
 }
+
+
 void KeyDown(unsigned char key, int x, int y)
 {
-	switch (key)
-	{
-	case 'c':
-		Camera.RotateY(5.0);
+	switch (key){
+	//Andar com a personagem
+	case 'w':
+		Camera.MoveForward(0.1) ;
 		Display();
 		break;
-	case 'v':
-		Camera.RotateY(-5.0);
+	case 'a':
+		Camera.StrafeRight(0.1);
+		Display();
+		break;
+	case 'd':
+		Camera.StrafeRight(-0.1);
 		Display();
 		break;
 	case 's':
 		Camera.MoveForward( -0.1 ) ;
 		Display();
 		break;
-	case 'w':
-		Camera.MoveForward( 0.1 ) ;
+	case 'r':
+		Camera.MoveUpward(-0.3);
+		Display();
+		break;
+	case 'f':
+		Camera.MoveUpward(0.3);
+		Display();
+		break;
+
+
+	//Rotacionar o modelo 3D
+	case 'i':
+		angulo1 = angulo1 + 5.0;
+		Display();
+		break;
+	case 'k':
+		angulo1 = angulo1 - 5.0;
+		Display();
+		break;
+	case 'l':
+		angulo2 = angulo2 + 5.0;
+		Display();
+		break;
+	case 'j':
+		angulo2 = angulo2 - 5.0;
+		Display();
+		break;
+	case 'o':
+		angulo3 = angulo3 + 5.0;
+		Display();
+		break;
+	case 'p':
+		angulo3 = angulo3 - 5.0;
+		Display();
+		break;
+
+
+
+	case 'c':
+		Camera.RotateY(5.0);
+		Display();
+		break;
+	case 'v':
+		Camera.RotateY(-5.0);
 		Display();
 		break;
 	case 'x':
@@ -174,34 +164,16 @@ void KeyDown(unsigned char key, int x, int y)
 		Camera.RotateX(-5.0);
 		Display();
 		break;
-	case 'a':
-		Camera.StrafeRight(-0.1);
-		Display();
-		break;
-	case 'd':
-		Camera.StrafeRight(0.1);
-		Display();
-		break;
-	case 'f':
-		Camera.MoveUpward(-0.3);
-		Display();
-		break;
-	case 'r':
-		Camera.MoveUpward(0.3);
-		Display();
-		break;
-	case 'm':
-		Camera.RotateZ(-5.0);
-		Display();
-		break;
-	case 'n':
-		Camera.RotateZ(5.0);
-		Display();
-		break;
 
 	}
 }
 
+//Funcao para colocar o modelo 3D
+int Model(){
+	//carregando o modelo desse repositorio
+  apple = loadObj("./obj/source/apple.obj");
+  return 1;
+}
 
 
 
@@ -210,7 +182,8 @@ int main(int argc, char **argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize(800,600);
-	glutCreateWindow("Camera");
+	glutCreateWindow("Apple 3D");
+	Model();
 	Camera.Move( F3dVector(0.0, 0.0, 3.0 ));
 	Camera.MoveForward( 1.0 );
 	glutDisplayFunc(Display);

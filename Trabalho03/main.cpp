@@ -1,6 +1,6 @@
 /**********************************************************************
 	Trabalho 03 da matéria de Computação gráfica
-	Tema: Ambiente 3D com movimentos e objeto de modelo 3D
+	Tema: Ambiente 3D com movimentos e objeto de modelo 3D (Apple)
 	Data: 02-06-2017
 	Autor: Gabriel Henrique C. Scalici 9292970
 				 Keith T. Sasaki 9293414
@@ -13,39 +13,35 @@
 #include <GL/glut.h>
 #endif
 
+#include <cstdlib>
+//Incluindo outros arquivos
 #include "camera.h"
 #include "obj.h"
-#include <cstdlib>
 
+//Objeto da classe
 CCamera Camera;
+//Objeto modelo 3D
 Obj *apple;
 
-int rot_x = 0;
-int rot_y = 0;
-int rot_z = 0;
+//variaveis para mexer o modelo 3D
 int angulo1 = 0;
 int angulo2 = 0;
 int angulo3 = 0;
-int aux_angle = 0;
-int temp = 0;
-int flag = 0;
 
 void reshape(int x, int y)
 {
-	if (y == 0 || x == 0) return;  //Nothing is visible then, so return
+	if (y == 0 || x == 0){
+		return;
+	}
 
-	//Set a new projection matrix
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	//Angle of view:40 degrees
-	//Near clipping plane distance: 0.5
-	//Far clipping plane distance: 20.0
 	gluPerspective(40.0,(GLdouble)x/(GLdouble)y,0.5,20.0);
-
 	glMatrixMode(GL_MODELVIEW);
-	glViewport(0,0,x,y);  //Use the whole window for rendering
+	glViewport(0,0,x,y);
 }
 
+//Funcao para desenhar a maca de objeto 3D
 void draw_apple(int ang1, int ang2, int ang3){
 	glColor3f(1.0,  1.0,  1.0 );
 	glTranslatef(0, 0, 0);
@@ -61,15 +57,14 @@ void draw_apple(int ang1, int ang2, int ang3){
 void Display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
+	//carregando a matriz identidade
 	glLoadIdentity();
 
 	glTranslatef(0.0,-0.5,-6.0);
-
 	glColor3f(0.3,0.0,0.0);
-
 	glTranslatef(Camera.Position.x, Camera.Position.y, Camera.Position.z);
 
-
+	//Desenhando o chao da cena
 	glBegin(GL_POLYGON);
    glColor3f(   1.0,  0.0,  0.0 );
    glVertex3f(  1.5, -0.5, -1.5 );
@@ -79,9 +74,6 @@ void Display(void)
    glEnd();
 
 	//Pegando o modelo 3D
-	//glLoadIdentity();
-	//tamanho do obj carregado 3D
-
 	draw_apple(angulo1, angulo2, angulo3);
 
 	glFlush();
@@ -89,7 +81,7 @@ void Display(void)
 
 }
 
-
+//Metodo para identificar a tecla apertada
 void KeyDown(unsigned char key, int x, int y)
 {
 	switch (key){
@@ -119,7 +111,6 @@ void KeyDown(unsigned char key, int x, int y)
 		Display();
 		break;
 
-
 	//Rotacionar o modelo 3D
 	case 'i':
 		angulo1 = angulo1 + 5.0;
@@ -147,24 +138,6 @@ void KeyDown(unsigned char key, int x, int y)
 		break;
 
 
-
-	case 'c':
-		Camera.RotateY(5.0);
-		Display();
-		break;
-	case 'v':
-		Camera.RotateY(-5.0);
-		Display();
-		break;
-	case 'x':
-		Camera.RotateX(5.0);
-		Display();
-		break;
-	case 'y':
-		Camera.RotateX(-5.0);
-		Display();
-		break;
-
 	}
 }
 
@@ -176,13 +149,14 @@ int Model(){
 }
 
 
-
+//Funcao principal
 int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize(800,600);
 	glutCreateWindow("Apple 3D");
+	//funcao para modelo 3D
 	Model();
 	Camera.Move( F3dVector(0.0, 0.0, 3.0 ));
 	Camera.MoveForward( 1.0 );

@@ -5,6 +5,24 @@
 	Autor: Gabriel Henrique C. Scalici 9292970
 				 Keith T. Sasaki 9293414
 
+
+Como usar:
+
+Movimento da camera/personagem primeira pessoa
+W - para frente
+S - para trás
+A - para a esquerda
+D - para a direita
+
+Movimento do objeto carregado de um modelo 3D (apple)
+I - rotaciona para cima
+K - rotaciona para baixo
+L - rotaciona para a esquerda
+J - rotaciona para a direita
+P - rotaciona para a direita no proprio eixo
+O - rotaciona para a esquerda no proprio eixo
+
+
 ***********************************************************************/
 
 #ifdef __APPLE__

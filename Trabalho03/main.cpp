@@ -61,7 +61,7 @@ void reshape(int x, int y)
 
 //Funcao para desenhar a maca de objeto 3D
 void draw_apple(int ang1, int ang2, int ang3){
-	glColor3f(1.0,  0.0,  0.0 );
+	glColor3f(1.0,  1.0,  1.0 );
 	glTranslatef(0, 0, 0);
 	glScalef(-0.15, 0.15, 0.15);
 	//glRotatef(ang, rot_x, rot_y, rot_z);
@@ -84,7 +84,7 @@ void Display(void)
 
 	//Desenhando o chao da cena
 	glBegin(GL_POLYGON);
-   glColor3f(   0.14546,  0.9999999,  0.3897 );
+   glColor3f(   1.0,  0.0,  0.0 );
    glVertex3f(  10.5, -0.5, -1.5 );
    glVertex3f(  1.5, -0.5, 5.0 );
    glVertex3f( -1.5, -0.5, 5.0 );

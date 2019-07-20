@@ -13,12 +13,15 @@
 
 * Exercícios de treinamento
 
+* Exemplos de aula
+
 * Trabalhos Finais da disciplina
 
 
 # :checkered_flag: Objetivo
 
 * Fornecer ao aluno familiarização com a computação gráfica, bem como conhecimento e prática dos conceitos básicos e aplicações.
+
 
 # :pushpin: Programa
 
@@ -31,6 +34,7 @@
 * Transformações de projeção paralela e perspectiva; câmera virtual; transformação entre sistemas de coordenadas 3D. 
 * Definição de objetos e cenas tridimensionais: modelos poliedrais e malhas de polígonos. 
 * O Processo de Rendering: fontes de luz; remoção de linhas e superfícies ocultas; modelos de iluminação e de tonalização (shading): Flat, Gouraud e Phong. Aplicação de Texturas. O problema do serrilhado (aliasing) e técnicas de anti-serrilhado (antialiasing).
+ 
  
 # :pencil: Bibliografia:
 
